@@ -2,7 +2,17 @@
 from functools import wraps
 
 from neko_bot import Config
-from neko_bot.core.utils import adminlist
+from neko_bot.core.logging import LOGGER
+
+
+async def adminlist(client, chat_id):
+    """This Function to get admin list."""
+    members = client.iter_chat_members(chat_id, filter="administrators")
+    _admin = []
+    async for i in members:
+        _admin.append(i.user.id)
+    return _admin
+
 
 def admin(coro):
     """This function build decorator for administ."""
@@ -19,17 +29,25 @@ def admin(coro):
 
 
 def staff(rank: str = "sudo"):
-    """This Function for staff commands."""
+    """This Function for staff commands.
+
+    Parameters:
+        rank (str, default="sudo"): rank needed to trigger a command
+    """
 
     def decorators(coro):
 
         @wraps(coro)
         async def check(client, message):
             user_id = message.from_user.id
-            if rank == "owner" and user_id == Config.OWNER_ID:
+            if rank in ["owner", "sudo"] and user_id == Config.OWNER_ID:
                 return await coro(client, message)
             elif rank == "sudo" and user_id in Config.SUDO_USERS:
                 return await coro(client, message)
+            else:
+                LOGGER.error("Unkown rank \"%s\"", rank)
+                return
+                
 
         return check
 
