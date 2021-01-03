@@ -1,5 +1,4 @@
 """Initialize Framework"""
 
-from .config import Config  # noqa
-from .nekobot import neko  # noqa
-from .core import cust_cmd # noqa
+from .config import Config  # noqa: F401
+from .nekobot import neko  # noqa: F401

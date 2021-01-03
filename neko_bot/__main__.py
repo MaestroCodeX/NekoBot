@@ -3,10 +3,10 @@
 import asyncio
 
 from pyrogram import idle
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram import filters
 
-from neko_bot import cust_cmd
-from neko_bot.core.decorators import chat_action, staff
+from neko_bot.core.decorators import staff
+from neko_bot.core.decorators import chat_action
 from .nekobot import neko
 
 
@@ -16,7 +16,7 @@ async def bot_startup():
     await idle()
 
 
-@neko.on_message(cust_cmd.command(commands=("start")))
+@neko.on_message(filters.command("start"))
 @staff()
 @chat_action()
 async def start(_, message):
