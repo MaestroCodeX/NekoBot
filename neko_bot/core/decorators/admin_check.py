@@ -1,8 +1,10 @@
 """Decorators for user check."""
+import logging
 from functools import wraps
 
 from neko_bot import Config
-from neko_bot.core.logging import LOGGER
+
+LOGGER = logging.getLogger(__name__)
 
 
 async def adminlist(client, chat_id):
@@ -45,7 +47,7 @@ def staff(rank: str = "sudo"):
             elif rank == "sudo" and user_id in Config.SUDO_USERS:
                 return await coro(client, message, *args, **kwargs)
             else:
-                LOGGER.error("Unkown rank \"%s\"", rank)
+                LOGGER.warning("Unkown rank \"%s\"", rank)
                 return
                 
 
