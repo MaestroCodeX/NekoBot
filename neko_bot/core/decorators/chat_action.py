@@ -1,9 +1,10 @@
 """Chat action decorators"""
 
 from functools import wraps
+from typing import Optional
 
 
-def chat_action(action: str = "typing"):
+def chat_action(action: Optional[str] = "typing"):
     """Trigger an action on function call.
 
     Parameters:

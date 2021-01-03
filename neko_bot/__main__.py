@@ -5,8 +5,7 @@ import asyncio
 from pyrogram import idle
 from pyrogram import filters
 
-from neko_bot.core.decorators import staff
-from neko_bot.core.decorators import chat_action
+from neko_bot.core.decorators import staff, chat_action
 from .nekobot import neko
 
 

@@ -1,6 +1,7 @@
 """Decorators for user check."""
 import logging
 from functools import wraps
+from typing import Optional
 
 from neko_bot import Config
 
@@ -30,7 +31,7 @@ def admin(coro):
     return decorator
 
 
-def staff(rank: str = "sudo"):
+def staff(rank: Optional[str] = "sudo"):
     """This Function for staff commands.
 
     Parameters:
