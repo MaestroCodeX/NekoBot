@@ -19,3 +19,4 @@ class Config: # pylint: disable=too-few-public-methods
     OWNER_ID = int(os.environ.get("OWNER_ID"))
     # Optional
     SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
+    CMD_PREFIX = os.environ.get("CMD_PREFIX", "/")
