@@ -6,8 +6,8 @@ from pyrogram import idle
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from neko_bot import cust_cmd
-from neko_bot.core.decorators.admin_check import staff
-from neko_bot.core.decorators.chat_action import chat_action
+from neko_bot.core.decorators import staff
+from neko_bot.core.decorators import chat_action
 from neko_bot.core.logging import LOGGER
 from .nekobot import neko
 
