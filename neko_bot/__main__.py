@@ -1,29 +1,24 @@
 """Module main starter"""
 
-import asyncio
+import logging
 
-from pyrogram import idle
 from pyrogram import filters
 
-from neko_bot.core.decorators import staff, chat_action
-from .nekobot import neko
+from . import neko
+from .core.logging import setup_log
 
-
-async def bot_startup():
-    """Bot startup."""
-    await neko.start()
-    await idle()
+LOGGER = logging.getLogger(__name__)
 
 
 @neko.on_message(filters.command("start"))
-@staff()
-@chat_action()
-async def start(_, message):
+async def start(bot, message):
     """This Start command."""
     getme = await neko.get_me()
     await message.reply_text(f"I'm alive\nMy name is {getme.first_name}")
+    LOGGER.info(neko)
+    LOGGER.info(bot)
 
 
 if __name__ == "__main__":
-    task = asyncio.get_event_loop()
-    task.run_until_complete(bot_startup())
+    setup_log()
+    neko.begin()
