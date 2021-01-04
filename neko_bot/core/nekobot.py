@@ -6,13 +6,15 @@ import signal
 from pyrogram import asyncio, idle
 from typing import Optional, Any, Awaitable, List
 
+from pyrogram import Client
+
 from neko_bot.config import Config
-from .ext import pool, RawClient
+from .ext import pool
 
 LOGGER = logging.getLogger(__name__)
 
 
-class NekoBot(RawClient):
+class NekoBot(Client):
     """NekoBot client"""
 
     def __init__(self, **kwargs):
