@@ -1,10 +1,14 @@
-from neko_bot import neko
+"""Start modules.."""
+
+import logging
+
 from pyrogram import filters
-from neko_bot import LOGGER
+from neko_bot import neko
 
 
 __MODULE__ = "start"
 
+LOGGER = logging.getLogger(__name__)
 
 @neko.on_message(filters.command("start"))
 async def start(bot, message):

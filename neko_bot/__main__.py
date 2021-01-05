@@ -1,7 +1,5 @@
 """Module main starter"""
 
-from pyrogram import filters
-
 from . import neko
 from .core.logging import setup_log
 
