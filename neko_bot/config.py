@@ -7,8 +7,6 @@ from dotenv import load_dotenv
 load_dotenv("config.env")
 
 
-
-
 class Config:    # pylint: disable=too-few-public-methods
     """
     all config using python-dotenv
@@ -22,3 +20,4 @@ class Config:    # pylint: disable=too-few-public-methods
     OWNER_ID = int(environ.get("OWNER_ID"))
     # Optional
     SUDO_USERS = {int(x) for x in environ.get("SUDO_USERS", "").split()}
+    PREFIX = environ.get("PREFIX", "/").split(",")

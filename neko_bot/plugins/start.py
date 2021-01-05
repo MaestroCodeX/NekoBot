@@ -2,15 +2,14 @@
 
 import logging
 
-from pyrogram import filters
-from neko_bot import neko
+from neko_bot import neko, command
 
 
 __MODULE__ = "start"
 
 LOGGER = logging.getLogger(__name__)
 
-@neko.on_message(filters.command("start"))
+@neko.on_message(command("start"))
 async def start(bot, message):
     """This Start command."""
     getme = await neko.get_me()
