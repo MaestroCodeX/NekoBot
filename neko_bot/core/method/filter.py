@@ -14,19 +14,21 @@ def command(commands: Union[str, List[str]],
         text: str = message.text or message.caption
         message.command = []
 
+        me = await _.get_me()
+
         if not text:
             return False
 
         regex = "^({prefix})+\\b({regex})\\b(\\b@{bot_name}\\b)?(.*)".format(
             prefix="|".join(re.escape(x) for x in prefixes),
             regex="|".join(flt.commands).lower(),
-            bot_name="NekoID_bot",
+            bot_name=me.username,
         )
 
         matches = re.search(re.compile(regex), text.lower())
         if matches:
             for arg in shlex.split(matches.group(4).strip()):
-                if arg.startswith("@") and arg != "@nekoid_bot":
+                if arg.startswith("@") and arg != f"@{me.username.lower()}":
                     return False
                 message.command.append(arg)
             return True
