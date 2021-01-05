@@ -5,8 +5,6 @@ from pyrogram.filters import create
 from pyrogram.types import Message
 from typing import Union, List
 
-from ...config import Config
-
 
 def command(commands: Union[str, List[str]],
             prefixes: Union[str, List[str]] = "/",
@@ -20,7 +18,7 @@ def command(commands: Union[str, List[str]],
             return False
 
         regex = "^({prefix})+\\b({regex})\\b(\\b@{bot_name}\\b)?(.*)".format(
-            prefix="|".join(re.escape(x) for x in Config.PREFIX),
+            prefix="|".join(re.escape(x) for x in prefixes),
             regex="|".join(flt.commands).lower(),
             bot_name="NekoID_bot",
         )
