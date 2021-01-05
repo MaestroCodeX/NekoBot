@@ -5,4 +5,4 @@ from .core.method import command
 from .config import Config
 
 
-neko = NekoBot()
+neko = NekoBot()  # pylint: disable = C0103

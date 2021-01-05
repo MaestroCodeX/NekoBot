@@ -47,7 +47,6 @@ def staff(rank: Optional[str] = "sudo"):
             else:
                 LOGGER.warning("Unkown rank \"%s\"", rank)
                 return
-                
 
         return check
 
