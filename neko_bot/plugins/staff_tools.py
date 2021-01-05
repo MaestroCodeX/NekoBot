@@ -4,17 +4,21 @@ import datetime
 
 from neko_bot.utils import staff
 from neko_bot import neko, command
+from typing import ClassVar
+
+__MODULE__ = "staff"
 
 
-@neko.on_message(command("ping"))
-@neko.send_action()
-@staff()
-async def pinger(_, message):
+class Ping:
     """Pinger tools"""
-    start = datetime.datetime.now()
-    reply = await message.reply_text(f"`Pinging...`")
-    finish = datetime.datetime.now()
-    result = (finish - start).microseconds / 1000
-    await reply.edit(f"**Pong!!!**\n`{result} ms`")
+    name: ClassVar[str] = "Ping"
 
-__MODULE__= "staff"
+    @neko.on_message(command("ping"))
+    @neko.send_action()
+    @staff()
+    async def cmd_ping(self, message):
+        start = datetime.datetime.now()
+        reply = await message.reply_text("`Pinging...`")
+        finish = datetime.datetime.now()
+        result = (finish - start).microseconds / 1000
+        await reply.edit(f"**Pong!!!**\n`{result} ms`")
