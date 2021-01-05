@@ -52,3 +52,21 @@ def staff(rank: Optional[str] = "sudo"):
         return check
 
     return decorators
+
+
+def bot_admin(coro):
+    """Check if bot is admin in group."""
+
+    @wraps(coro)
+    async def check_bot_admin(client, message, *args, **kwargs):
+        if message.chat.type != "private":
+            bot = await client.get_chat_member(message.chat.id, 'me')
+            if bot.status == "administrator":
+                return await coro(client, message, *args, **kwargs)
+            else:
+                await message.reply_text("I'm not an admin")
+                return
+        else:
+            return
+
+    return check_bot_admin
