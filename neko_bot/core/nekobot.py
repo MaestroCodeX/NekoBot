@@ -7,6 +7,8 @@ from pyrogram import asyncio, idle
 from typing import Optional, Any, Awaitable, List
 
 from pyrogram import Client
+import importlib
+from neko_bot.plugins import ALL_MODULES
 
 from neko_bot.config import Config
 from .ext import pool
@@ -31,6 +33,14 @@ class NekoBot(Client):
     async def start(self):
         """ Start client """
         pool.start()
+        for m in ALL_MODULES:
+            imported_module = importlib.import_module("neko_bot.plugins." + m)
+            if hasattr(
+                imported_module,
+                "__MODULE__"
+            ) and imported_module.__MODULE__:
+                imported_module.__MODULE__ = imported_module.__MODULE__
+                LOGGER.info(m + " module loaded")
         LOGGER.info("Starting Bot Client...")
         await super().start()
 
@@ -76,7 +86,7 @@ class NekoBot(Client):
                 LOGGER.info("Idling")
                 idle()
             self.loop.run_until_complete(finalized())
-        except (asyncio.exceptions.CancelledError, RuntimeError):
+        except (asyncio.CancelledError, RuntimeError):
             pass
         finally:
             self.loop.close()
