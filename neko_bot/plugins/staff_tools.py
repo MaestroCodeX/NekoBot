@@ -1,15 +1,15 @@
 """Staff tools modules, just for staff."""
 
 import datetime
-
-from neko_bot.utils import staff
-from neko_bot import neko, command
 from typing import ClassVar
+
+from neko_bot import neko, command
+from neko_bot.utils import staff
 
 __MODULE__ = "staff"
 
 
-class Ping:
+class Ping:  # pylint: disable = too-few-public-methods
     """Pinger tools"""
     name: ClassVar[str] = "Ping"
 
@@ -17,6 +17,7 @@ class Ping:
     @neko.send_action()
     @staff()
     async def cmd_ping(self, message):
+        """Return bot ping in ms"""
         start = datetime.datetime.now()
         reply = await message.reply_text("`Pinging...`")
         finish = datetime.datetime.now()

@@ -22,17 +22,16 @@ def admin(coro):
         administ = await adminlist(client, chat_id, *args, **kwargs)
         if message.from_user.id in administ:
             return await coro(client, message, *args, **kwargs)
-        else:
-            return await message.reply_text("You are not an admin!")
+        return await message.reply_text("You are not an admin!")
 
     return decorator
 
 
 def staff(rank: Optional[str] = "sudo"):
-    """This Function for staff commands.
+    """This Function for staff commands trigger.
 
     Parameters:
-        rank (str, default="sudo"): rank needed to trigger a command
+        rank (''str'', optional): rank needed to trigger a command.
     """
 
     def decorators(coro):
@@ -42,11 +41,12 @@ def staff(rank: Optional[str] = "sudo"):
             user_id = message.from_user.id
             if rank in ["owner", "sudo"] and user_id == Config.OWNER_ID:
                 return await coro(client, message, *args, **kwargs)
-            elif rank == "sudo" and user_id in Config.SUDO_USERS:
+
+            if rank == "sudo" and user_id in Config.SUDO_USERS:
                 return await coro(client, message, *args, **kwargs)
-            else:
-                LOGGER.warning("Unkown rank \"%s\"", rank)
-                return
+
+            LOGGER.warning("Unkown rank \"%s\"", rank)
+            return
 
         return check
 
@@ -62,10 +62,8 @@ def bot_admin(coro):
             bot = await client.get_chat_member(message.chat.id, 'me')
             if bot.status == "administrator":
                 return await coro(client, message, *args, **kwargs)
-            else:
-                await message.reply_text("I'm not an admin")
-                return
-        else:
-            return
+
+        return await message.reply_text("I'm not an admin")
+
 
     return check_bot_admin
